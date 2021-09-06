@@ -3,6 +3,7 @@ package org.javajarvis.SistemCuti_UASJava.controller;
 import org.javajarvis.SistemCuti_UASJava.model.HakCuti;
 import org.javajarvis.SistemCuti_UASJava.model.JenisCuti;
 import org.javajarvis.SistemCuti_UASJava.repository.HakCutiRepository;
+import org.javajarvis.SistemCuti_UASJava.service.HakCutiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -14,14 +15,17 @@ public class HakCutiController {
     @Autowired
     private HakCutiRepository repo;
 
+    @Autowired
+    private HakCutiService service;
+
     @PostMapping
     public HakCuti save(@RequestBody HakCuti hakCuti){
-        return repo.save(hakCuti);
+        return service.save(hakCuti);
     }
 
     @PutMapping
     public HakCuti update(@RequestBody HakCuti hakCuti){
-        return  repo.save(hakCuti);
+        return  service.save(hakCuti);
     }
 
     @DeleteMapping

@@ -12,11 +12,10 @@ import java.util.List;
 @Table(name = "tbl_role")
 @Data
 @Getter @Setter
-public class Role {
+public class Role extends  BaseEntity<String> {
 
     private Integer id;
-//    @JsonIgnoreProperties({"employees"})
-//    private List<Employee> employee;
+
 
     @Column(name = "nama_role")
     private String nameRole;
@@ -28,16 +27,4 @@ public class Role {
         return id;
     }
 
-//    @OneToMany(mappedBy = "role",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-//    @JsonIgnoreProperties({"role"})
-//    public List<Employee> getEmployee() {
-//        return employee;
-//    }
-//
-//    public void setEmployee(List<Employee> employee) {
-//        for(Employee e : employee){
-//            e.setRole(this);
-//        }
-//        this.employee = employee;
-//    }
 }

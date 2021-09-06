@@ -11,7 +11,7 @@ import java.util.Date;
 @Table(name = "tbl_libur")
 @Data
 @Setter @Getter
-public class Libur {
+public class Libur extends BaseEntity<String>{
 
     private Integer id;
     private String deskripsi;

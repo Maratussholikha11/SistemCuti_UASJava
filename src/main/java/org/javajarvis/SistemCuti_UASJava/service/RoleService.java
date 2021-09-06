@@ -1,5 +1,6 @@
 package org.javajarvis.SistemCuti_UASJava.service;
 
+import org.javajarvis.SistemCuti_UASJava.model.Libur;
 import org.javajarvis.SistemCuti_UASJava.model.Role;
 import org.javajarvis.SistemCuti_UASJava.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,12 @@ public class RoleService {
     private RoleRepository rr;
 
     public Role save(Role role){
-       return rr.save(role);
+        if(role.getId()!=null){ //
+            Role current = rr.findById(role.getId()).get();
+            current.setNameRole(role.getNameRole());
+            role = current;
+        }
+        return rr.save(role);
     }
 
     public void removeOne(Integer id){

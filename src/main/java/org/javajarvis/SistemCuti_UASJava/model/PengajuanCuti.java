@@ -1,38 +1,30 @@
 package org.javajarvis.SistemCuti_UASJava.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "tbl_pengajuan_cuti")
 @Data
 @Setter @Getter
-public class PengajuanCuti {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pengajuan_cuti_id")
+public class PengajuanCuti extends BaseEntity<String> implements Serializable {
     private Integer id;
-
-    @ManyToOne
-    @JoinColumn(name = "employee_id")
     private Employee employee;
-
-    @ManyToOne
-    @JoinColumn(name = "status_cuti_id")
     private StatusCuti statusCuti;
+    private DetailPengajuanCuti detailPengajuanCuti;
 
-    @ManyToOne
-    @JoinColumn(name = "pengganti_id")
-    private Employee pengganti;
+    @Column(name = "pengganti_id")
+    private  Integer penggantiId;
 
-    @ManyToOne
-    @JoinColumn(name = "hrd_id")
-    private Employee hrd;
+    @Column(name = "hrd_id")
+    private Integer hrdId;
 
     private String alamat;
 
@@ -44,75 +36,34 @@ public class PengajuanCuti {
     @Column(name = "lama_cuti")
     private Integer lamaCuti;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "pengajuan_cuti_id")
+
     public Integer getId() {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
+    @ManyToOne
+    @JoinColumn(name = "employee_id")
     public Employee getEmployee() {
         return employee;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
-
+    @ManyToOne
+    @JoinColumn(name = "status_cuti_id")
     public StatusCuti getStatusCuti() {
         return statusCuti;
     }
 
-    public void setStatusCuti(StatusCuti statusCuti) {
-        this.statusCuti = statusCuti;
+    @JsonIgnoreProperties({"pengajuanCuti"})
+    @OneToOne(mappedBy = "pengajuanCuti", cascade = CascadeType.ALL)
+    public DetailPengajuanCuti getDetailPengajuanCuti() {
+        return detailPengajuanCuti;
     }
 
-    public Employee getPengganti() {
-        return pengganti;
-    }
-
-    public void setPengganti(Employee pengganti) {
-        this.pengganti = pengganti;
-    }
-
-    public Employee getHrd() {
-        return hrd;
-    }
-
-    public void setHrd(Employee hrd) {
-        this.hrd = hrd;
-    }
-
-    public String getAlamat() {
-        return alamat;
-    }
-
-    public void setAlamat(String alamat) {
-        this.alamat = alamat;
-    }
-
-    public String getNoTelp() {
-        return noTelp;
-    }
-
-    public void setNoTelp(String noTelp) {
-        this.noTelp = noTelp;
-    }
-
-    public String getKeterangan() {
-        return keterangan;
-    }
-
-    public void setKeterangan(String keterangan) {
-        this.keterangan = keterangan;
-    }
-
-    public Integer getLamaCuti() {
-        return lamaCuti;
-    }
-
-    public void setLamaCuti(Integer lamaCuti) {
-        this.lamaCuti = lamaCuti;
+    public void setDetailPengajuanCuti(DetailPengajuanCuti detailPengajuanCuti) {
+        detailPengajuanCuti.setPengajuanCuti(this);
+        this.detailPengajuanCuti = detailPengajuanCuti;
     }
 }

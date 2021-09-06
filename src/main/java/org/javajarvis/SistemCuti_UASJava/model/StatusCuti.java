@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Table(name = "tbl_status_cuti")
 @Data
 @Setter @Getter
-public class StatusCuti {
+public class StatusCuti extends BaseEntity<String>{
 
     private Integer id;
     private String deskripsi;

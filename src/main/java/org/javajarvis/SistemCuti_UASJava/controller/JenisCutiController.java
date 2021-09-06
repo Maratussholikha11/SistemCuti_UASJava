@@ -2,6 +2,7 @@ package org.javajarvis.SistemCuti_UASJava.controller;
 
 import org.javajarvis.SistemCuti_UASJava.model.JenisCuti;
 import org.javajarvis.SistemCuti_UASJava.repository.JenisCutiRepository;
+import org.javajarvis.SistemCuti_UASJava.service.JenisCutiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,14 +15,17 @@ public class JenisCutiController {
     @Autowired
     private JenisCutiRepository repo;
 
+    @Autowired
+    private JenisCutiService service;
+
     @PostMapping
     public JenisCuti save(@RequestBody JenisCuti jenisCuti){
-        return repo.save(jenisCuti);
+        return service.save(jenisCuti);
     }
 
     @PutMapping
     public JenisCuti update(@RequestBody JenisCuti jenisCuti){
-        return  repo.save(jenisCuti);
+        return  service.save(jenisCuti);
     }
 
     @DeleteMapping

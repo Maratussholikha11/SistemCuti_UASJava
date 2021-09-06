@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 //import org.springframework.security.core.GrantedAuthority;
 //import org.springframework.security.core.authority.SimpleGrantedAuthority;
 //import org.springframework.security.core.userdetails.UserDetails;
@@ -18,9 +21,10 @@ import java.util.List;
 
 @Entity
 @Table(name = "tbl_employee")
-@Setter
-@Getter
-public class Employee extends BaseEntity<String> implements Serializable { //implements UserDetails
+@Setter @Getter
+@NoArgsConstructor
+@Data
+public class Employee extends BaseEntity<String> implements UserDetails, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,4 +52,52 @@ public class Employee extends BaseEntity<String> implements Serializable { //imp
 
     @Column(name = "password", nullable = false)
     private String password;
+<<<<<<< HEAD
+=======
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public Employee(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    @Override
+    @Transient
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<SimpleGrantedAuthority> result = new ArrayList<SimpleGrantedAuthority>();
+        result.add(new SimpleGrantedAuthority("ROLE_" + getRole().getNameRole()));
+        return result;
+    }
+
+    @Override
+    @Transient
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    @Transient
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    @Transient
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    @Transient
+    public boolean isEnabled() {
+        return true;
+    }
+>>>>>>> bc317f328226ad16b4ecab4924c44b0da14c92d1
 }

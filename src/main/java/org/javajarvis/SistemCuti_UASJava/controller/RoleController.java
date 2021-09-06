@@ -1,6 +1,7 @@
 package org.javajarvis.SistemCuti_UASJava.controller;
 
 import org.javajarvis.SistemCuti_UASJava.dto.ResponseData;
+import org.javajarvis.SistemCuti_UASJava.model.Employee;
 import org.javajarvis.SistemCuti_UASJava.model.Role;
 import org.javajarvis.SistemCuti_UASJava.repository.RoleRepository;
 import org.javajarvis.SistemCuti_UASJava.service.RoleService;
@@ -23,26 +24,36 @@ public class RoleController {
     @Autowired
     RoleService rs;
 
-    @PostMapping
-    public ResponseEntity<ResponseData<Role>> create(@RequestBody Role role, Errors errors){
-        ResponseData<Role> responseData = new ResponseData<>();
+//    @PostMapping
+//    public ResponseEntity<ResponseData<Role>> create(@RequestBody Role role, Errors errors){
+//        ResponseData<Role> responseData = new ResponseData<>();
+//
+//        if (errors.hasErrors()){
+//            for (ObjectError error : errors.getAllErrors()){
+//                responseData.getMessages().add(error.getDefaultMessage());
+//            }
+//            responseData.setStatus(false);
+//            responseData.setPayload(null);
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseData);
+//        }
+//        responseData.setStatus(true);
+//        responseData.setPayload(rs.save(role));
+//        return ResponseEntity.ok(responseData);
+//    }
 
-        if (errors.hasErrors()){
-            for (ObjectError error : errors.getAllErrors()){
-                responseData.getMessages().add(error.getDefaultMessage());
-            }
-            responseData.setStatus(false);
-            responseData.setPayload(null);
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseData);
-        }
-        responseData.setStatus(true);
-        responseData.setPayload(rs.save(role));
-        return ResponseEntity.ok(responseData);
+    @PostMapping
+    public Role save(@RequestBody Role role){
+        return rs.save(role);
+    }
+
+    @PutMapping
+    public Role update(@RequestBody Role role){
+        return rs.save(role);
     }
 
     @GetMapping
     Iterable<Role> findAll(){
-          return roleRepository.findAll();
+        return roleRepository.findAll();
     }
 
     @GetMapping("/{id}")

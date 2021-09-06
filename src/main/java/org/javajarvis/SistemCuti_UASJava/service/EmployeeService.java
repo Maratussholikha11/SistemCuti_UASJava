@@ -1,6 +1,7 @@
 package org.javajarvis.SistemCuti_UASJava.service;
 
 import org.javajarvis.SistemCuti_UASJava.model.Employee;
+import org.javajarvis.SistemCuti_UASJava.model.HakCuti;
 import org.javajarvis.SistemCuti_UASJava.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -17,9 +18,18 @@ public class EmployeeService {
 
 
     public Employee save(Employee employee){
+        if(employee.getId()!=null){ //
+            Employee current = employeeRepository.findById(employee.getId()).get();
+            current.setNamaLengkap(employee.getNamaLengkap());
+            current.setNip(employee.getNip());
+            current.setEmail(employee.getEmail());
+            current.setDivisi(employee.getDivisi());
+            current.setPassword(employee.getPassword());
+            current.setUsername(employee.getUsername());
+            employee = current;
+        }
         return employeeRepository.save(employee);
     }
-
     public Employee findOne(Integer id){
         Optional<Employee> employee = employeeRepository.findById(id);
         return employee.orElse(null);
