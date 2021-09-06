@@ -1,16 +1,23 @@
 import html from "../js/htm.js";
 import {Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from "../js/material-ui.js";
+import {useContext} from "../js/react.js";
+import {AuthContext} from "../App.js";
+import {useHistory} from "../js/react-router-dom.js";
 
 function Logout(props){
 
-    const [open, setOpen] = React.useState(false);
-
-    const handleClickOpen = () => {
-        setOpen(true);
+    const handleClose = () => {
+        props.setOpen(false);
     };
 
-    const handleClose = () => {
-        setOpen(false);
+    const {user, setUser} = useContext(AuthContext);
+    const history = useHistory();
+
+    const logout = () => {
+        setUser(null);
+        localStorage.removeItem('token');
+        props.setOpen(false);
+        history.push('/login');
     };
 
     return html`
@@ -29,8 +36,8 @@ function Logout(props){
                 <//>
             <//>
             <${DialogActions}>
-                <${Button} onClick={handleClose}>Ya<//>
-                <${Button} onClick={handleClose} autoFocus>
+                <${Button} onClick=${logout}>Ya<//>
+                <${Button} onClick=${handleClose} autoFocus>
                     Tidak
                 <//>
             <//>

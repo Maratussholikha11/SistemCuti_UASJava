@@ -1,7 +1,7 @@
 import html from "../js/htm.js";
 import {
     Box, Button,
-    Container,
+    Container, Divider,
     FormControl, IconButton, InputAdornment,
     InputLabel,
     OutlinedInput,
@@ -10,8 +10,10 @@ import {
     TextField,
     Typography
 } from "../js/material-ui.js";
-import {useState} from "../js/react.js";
+import {useContext, useState} from "../js/react.js";
 import MaterialIcon from "../components/MaterialIcon.js";
+import {AuthContext, getUser} from "../App.js";
+import {Redirect, useHistory} from "../js/react-router-dom.js";
 
 function Login (){
 
@@ -22,6 +24,11 @@ function Login (){
         weightRange: '',
         showPassword: false,
     });
+
+    const {user, setUser} = useContext(AuthContext);
+    const [usernameError, setUsernameError] = useState(null);
+    const [passwordError, setPasswordError] = useState(null);
+    const history = useHistory();
 
     const handleChange = (prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });
@@ -38,15 +45,50 @@ function Login (){
         event.preventDefault();
     };
 
+    const login = async (event) => {
+        event.preventDefault();
+        const response = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: event.target.username.value,
+                password: event.target.password.value,
+            }),
+        });
+        if (response.ok) {
+            const token = await response.text();
+            localStorage.setItem('token', token);
+            const user = await getUser();
+            setUser(user);
+            console.log(user);
+            if (user.role === 1) {
+                history.push('/dashboardkaryawan');
+            } else {
+                history.push('/');
+            }
+        } else {
+            const errorMessage = await response.text();
+            if (response.status === 404) {
+                setPasswordError(null);
+                setUsernameError(errorMessage);
+            } else {
+                setUsernameError(null);
+                setPasswordError(errorMessage);
+            }
+        }
+    };
+
     return html`
           <${Stack} padding=${2} spacing=${2}>
-            <${Typography} variant="h4" sx=${{color:"#00c853"}}>
-                Login
-            <//>
+              <${Typography} variant="h4" component="div" sx=${{ flexGrow: 1, color:"#4c8c4a"}}>
+                  <span style=${{color:"#009624"}}>G-Four</span>Leave
+              <//>
           <//>
         <${Container} maxWidth="sm" >
             <${Box} maxWidth="sm" sx=${{
-                bgcolor: '#cfe8fc',
+                bgcolor: '#4c8c4a',
                 height: '100vh',
                 display: 'flex',
                 flexWrap: 'wrap',
@@ -54,35 +96,17 @@ function Login (){
                 alignContent: 'center',
                 justifyContent: 'center',
                 }}>
-                <${Paper} elevation=${3} maxwidth="xl">
-                    <form>
+                <${Paper} elevation=${3} sx=${{p: 4, minWidth: 512}}>
+                    <form onSubmit=${login}>
                         <${Stack} spacing=${2}>
-                            <${TextField} id="standard-basic" label="Username" variant="standard" name="username" onChange=${handleChange}/>
-                                <${FormControl} sx=${{ m: 1, width: '25ch' }} variant="outlined">
-                                <${InputLabel} htmlFor="outlined-adornment-password">Password<//>
-                                <${OutlinedInput}
-                                        id="outlined-adornment-password"
-                                        type=${values.showPassword ? 'text' : 'password'}
-                                value=${values.password}
-                                onChange=${handleChange('password')}
-                                endAdornment=${html`
-                                    <${InputAdornment} position="end">
-                                        <${IconButton}
-                                                aria-label="toggle password visibility"
-                                                onClick=${handleClickShowPassword}
-                                                onMouseDown=${handleMouseDownPassword}
-                                                edge="end"
-                                        >
-                                            ${values.showPassword ? html`<${MaterialIcon}>visibility_off<//>` : html`<${MaterialIcon}>visibility<//>`}
-                                    <//>
-                                <//>
-                                `
-                                }
-                                label="Password"
-                                />
-                                <//>
+                            <${Typography} variant="h4" sx=${{color:"#00c853"}}>
+                                Login
+                            <//>
+                            <${Divider}/>
+                            <${TextField} label="Nama pengguna" variant="outlined" name="username" onChange=${handleChange} autoFocus required error=${usernameError !== null} helperText=${usernameError}/>
+                            <${TextField} label="Kata sandi" type="password" variant="outlined" name="password" onChange=${handleChange} required error=${passwordError !== null} helperText=${passwordError}/>
                             <${Stack} direction="row" spacing=${2} justifyContent="flex-end">
-                                <${Button} type="submit" variant="contained">Masuk<//>
+                                <${Button} type="submit" variant="contained" sx=${{background:"#00c853"}}>Masuk<//>
                             <//>
                         <//>
                     </form>

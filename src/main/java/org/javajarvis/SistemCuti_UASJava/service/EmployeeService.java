@@ -15,16 +15,14 @@ public class EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
+
     public Employee save(Employee employee){
         return employeeRepository.save(employee);
     }
 
     public Employee findOne(Integer id){
         Optional<Employee> employee = employeeRepository.findById(id);
-        if (!employee.isPresent()){
-            return null;
-        }
-        return employee.get();
+        return employee.orElse(null);
     }
 
 

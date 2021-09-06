@@ -1,5 +1,15 @@
 import html from "../js/htm.js";
-import {Button,FormControl,MenuItem,TextField, InputLabel, Paper, Select,Stack} from "../js/material-ui.js";
+import {
+    Button,
+    FormControl,
+    MenuItem,
+    TextField,
+    InputLabel,
+    Paper,
+    Select,
+    Stack,
+    DialogTitle, Dialog, DialogActions, DialogContent
+} from "../js/material-ui.js";
 import {useState} from "../js/react.js";
 
 function InsertCuti(props){
@@ -25,23 +35,29 @@ function InsertCuti(props){
     };
 
     return html`
-        <${Paper} elevation=${3} sx=${{p: 4}}>
-            <h1>Tambah Pengajuan Cuti</h1>
-            <form onSubmit=${handleSubmit}>
-                <${Stack} spacing=${2}>
-                    <${TextField} id="standard-basic" label="Tanggal" variant="standard" name="tanggal" onChange=${handleChange}/>
-                    <${TextField} id="standard-basic" label="Id Karyawan Pengganti" variant="standard" name="penggantiId" onChange=${handleChange}/>
-                    <${TextField} id="standard-basic" label="Alamat" variant="standard" name="alamat" onChange=${handleChange}/>
-                    <${TextField} id="standard-basic" label="No Telphone" variant="standard" name="noTelp" onChange=${handleChange}/>
-                    <${TextField} id="standard-basic" label="Keterangan" variant="standard" name="keterangan" onChange=${handleChange}/>
-                    <${TextField} id="standard-basic" label="Lama Cuti" variant="standard" name="lamaCuti" onChange=${handleChange}/>
-                    <${Stack} direction="row" spacing=${2} justifyContent="flex-end">
-                        <${Button} type="reset" variant="outlined">Kembali<//>
-                        <${Button} type="submit" variant="contained">Simpan<//>
+         <${Dialog} open=${props.open} onClose=${props.onClose} scroll="paper" component="form" fullWidth>
+            <${DialogTitle}>Tambah Pengajuan Cuti<//>
+            <${DialogContent} dividers>
+                <${Stack}  spacing=${2}>
+                    <${Paper} elevation=${3} sx=${{p: 4}}>
+                        <form onSubmit=${handleSubmit}>
+                            <${Stack} spacing=${2}>
+                                <${TextField} id="standard-basic" label="Tanggal" variant="standard" name="tanggal" onChange=${handleChange}/>
+                                <${TextField} id="standard-basic" label="Id Karyawan Pengganti" variant="standard" name="penggantiId" onChange=${handleChange}/>
+                                <${TextField} id="standard-basic" label="Alamat" variant="standard" name="alamat" onChange=${handleChange}/>
+                                <${TextField} id="standard-basic" label="No Telphone" variant="standard" name="noTelp" onChange=${handleChange}/>
+                                <${TextField} id="standard-basic" label="Keterangan" variant="standard" name="keterangan" onChange=${handleChange}/>
+                                <${TextField} id="standard-basic" label="Lama Cuti" variant="standard" name="lamaCuti" onChange=${handleChange}/>
+                            <//>
+                        </form>
                     <//>
                 <//>
-            </form>
-        <//>
+                <${DialogActions}>
+                    <${Button} type="reset" variant="outlined">Kembali<//>
+                    <${Button} type="submit" variant="contained">Simpan<//>
+                <//>
+            <//>
+         <//>
     `;
 }
 export default InsertCuti;

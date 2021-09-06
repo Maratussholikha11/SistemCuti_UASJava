@@ -12,12 +12,14 @@ import {
     Typography
 } from "../js/material-ui.js";
 import MaterialIcon from "./MaterialIcon.js";
-import {useState} from "../js/react.js";
+import {useContext, useState} from "../js/react.js";
 import Logout from "./Logout.js";
 import GantiPassword from "./GantiPassword.js";
+import {AuthContext} from "../App.js";
 
 function Header(props) {
 
+    const {user, setUser} = useContext(AuthContext);
     const [anchorEl, setAnchorEl] = useState(null);
 
     const handleMenu = (event) => {
@@ -46,9 +48,11 @@ function Header(props) {
                     <${Typography} variant="h6" component="div" sx=${{ flexGrow: 1, color:"#4c8c4a"}}>
                         <span style=${{color:"#009624"}}>G-Four</span>Leave
                     <//>
-                    <${Typography} variant="h6" component="div" sx=${{ color:"#009624"}}>
-                        <span style=${{color:"#4c8c4a"}}>Halo </span>Anjar Maulana
-                    <//>
+                    ${user ? html`
+                        <${Typography} variant="h6" component="div" sx=${{ color:"#009624"}}>
+                            <span style=${{color:"#4c8c4a"}}>Halo </span>${user.namaLengkap}
+                        <//>
+                    ` : null}
                     <div>
                         <${IconButton}
                                 size="large"
@@ -79,8 +83,8 @@ function Header(props) {
                             <${MenuItem} onClick=${() => setOpenGantiPassword(true)} component=${Link} to="/gantipasword"><${MaterialIcon} >password<//> Ganti Password<//>
                             <${GantiPassword} open=${openGantiPassword} onClose=${() => setOpenGantiPassword()}/>
                             <${Divider}/>
-                            <${MenuItem} onClick=${() => setOpenLogout(true)} component=${Link} to="/logout"><${MaterialIcon}>logout<//> Keluar<//>
-                            <${Logout} open=${openLogout} onClose=${() => setOpenLogout()}/>
+                            <${MenuItem} onClick=${() => {setOpenLogout(true); handleClose();}} component=${Link} to="/logout"><${MaterialIcon}>logout<//> Keluar<//>
+                            <${Logout} open=${openLogout} setOpen=${setOpenLogout}/>
                         <//>
                     </div>
                     

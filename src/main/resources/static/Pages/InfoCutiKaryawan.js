@@ -16,7 +16,7 @@ import {Link} from "../js/react-router-dom.js";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
-        backgroundColor: theme.palette.common.black,
+        backgroundColor:"#512da8",
         color: theme.palette.common.white,
     },
     [`&.${tableCellClasses.body}`]: {
@@ -57,12 +57,11 @@ function InfoCutiKaryawan() {
                 <${Table} sx=${{ minWidth: 700 }} aria-label="customized table">
                     <${TableHead}>
                         <${TableRow}>
-                            <${StyledTableCell}>ID Pengajuan<//>
+                            <${StyledTableCell}>ID Employee<//>
                             <${StyledTableCell} align="right">Nama<//>
-                            <${StyledTableCell} align="right">Tanggal Cuti<//>
-                            <${StyledTableCell} align="right">Lama Cuti<//>
-                            <${StyledTableCell} align="right">Status<//>
-                            <${StyledTableCell} align="right">Tindakan<//>
+                            <${StyledTableCell} align="right">Cuti Digunakan<//>
+                            <${StyledTableCell} align="right">Sisa Cuti Tahunan<//>
+                            <${StyledTableCell} align="right">Sisa Cuti Lintas Tahun<//>
                         <//>
                     <//>
                     <${TableBody}>

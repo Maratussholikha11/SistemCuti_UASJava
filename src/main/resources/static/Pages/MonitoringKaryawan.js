@@ -1,6 +1,6 @@
 import html from "../js/htm.js";
 import {
-    Button,
+    Button, IconButton,
     Paper, Stack,
     styled,
     Table,
@@ -13,10 +13,12 @@ import {
 } from "../js/material-ui.js";
 import MaterialIcon from "../components/MaterialIcon.js";
 import {Link} from "../js/react-router-dom.js";
+import InsertCuti from "../components/InsertCuti.js";
+import {useState} from "../js/react.js";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
-        backgroundColor: theme.palette.common.black,
+        backgroundColor: "#512da8",
         color: theme.palette.common.white,
     },
     [`&.${tableCellClasses.body}`]: {
@@ -46,13 +48,22 @@ const rows = [
     createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
 
-function MonitoringKaryawan() {
+function MonitoringKaryawan(props) {
+    const [openDialog, setOpenDialog] = useState(false);
+
+    const handleCloseDialog = () => {
+        setOpenDialog(false);
+    }
+
     return html`
         <${Stack} padding=${2} spacing=${2} alignItems="flex-start">
             <${Typography} variant="h4" sx=${{color:"#00c853"}}>
                 Monitoring
             <//>
-            <${Button} type="submit" variant="outlined" component=${Link} to="/insertcuti"><${MaterialIcon}>add_circle<//>Tambah<//>
+            <${Button} type="submit" variant="outlined" onClick=${() => setOpenDialog(true)} startIcon=${html`<${MaterialIcon}>add_circle<//>`}>
+                Tambah
+            <//>
+            <${InsertCuti} open=${openDialog} onClose=${handleCloseDialog}/>
             <${TableContainer} component=${Paper}>
                     <${Table} sx=${{ minWidth: 700 }} aria-label="customized table">
                         <${TableHead}>
@@ -75,6 +86,20 @@ function MonitoringKaryawan() {
                                 <${StyledTableCell} align="right">${row.fat}<//>
                                 <${StyledTableCell} align="right">${row.carbs}<//>
                                 <${StyledTableCell} align="right">${row.protein}<//>
+                                <${StyledTableCell} align="right">  
+                                    <${IconButton}>
+                                        <${MaterialIcon}>send<//>
+                                    <//>
+                                    <${IconButton}>
+                                        <${MaterialIcon}>read_more<//>
+                                    <//>
+                                    <${IconButton}>
+                                        <${MaterialIcon}>edit_note<//>
+                                    <//>
+                                    <${IconButton}>
+                                        <${MaterialIcon}>delete<//>
+                                    <//>
+                                <//>
                             <//>
                             `)}
                         <//>

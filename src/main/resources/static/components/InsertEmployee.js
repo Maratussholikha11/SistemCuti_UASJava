@@ -65,7 +65,7 @@ function InsertEmployee(props) {
             <//>
             <${DialogActions}>
                 <${Button} type="reset" variant="outlined">Kembali<//>
-                <${Button} type="submit" variant="contained">Simpan<//>
+                <${Button} type="submit" variant="contained" onsubmit=${handleSubmit}>Simpan<//>
             <//>
         <//>
     `;

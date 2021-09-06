@@ -1,22 +1,17 @@
-import html from "../js/htm.js";
 import {
-    Button,
-    Paper,
-    Stack, styled,
-    Table,
-    TableBody, TableCell, tableCellClasses,
-    TableContainer,
-    TableHead,
+    Stack,
+    styled,
+    Table, TableBody,
+    TableCell,
+    tableCellClasses,
+    TableContainer, TableHead,
     TableRow,
     Typography
 } from "../js/material-ui.js";
-import {useState} from "../js/react.js";
-import MaterialIcon from "../components/MaterialIcon.js";
-import InsertEmployee from "../components/InsertEmployee.js";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
-        backgroundColor: theme.palette.common.black,
+        backgroundColor:"#512da8",
         color: theme.palette.common.white,
     },
     [`&.${tableCellClasses.body}`]: {
@@ -45,33 +40,29 @@ const rows = [
     createData('Cupcake', 305, 3.7, 67, 4.3),
     createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
-
-function TambahDataKaryawan(){
-
-    const [openDialog, setOpenDialog] = useState(false);
-
-    const handleCloseDialog = () => {
-        setOpenDialog(false);
-    }
+function DetailPengajuanCuti(){
     return html`
-     <${Stack} padding=${2} spacing=${2} alignItems="flex-start" >
+      <${Stack} padding=${2} spacing=${2}>
             <${Typography} variant="h4" sx=${{color:"#00c853"}}>
-                Tambah Data Karyawan
+                Info Cuti Karyawan
             <//>
-         <${Button} type="submit" variant="outlined" onClick=${() => setOpenDialog(true)} startIcon=${html`<${MaterialIcon}>add_circle<//>`}>
-             Tambah
-         <//>
-         <${InsertEmployee} open=${openDialog} onClose=${handleCloseDialog}/>
-        <${TableContainer} component=${Paper}>
-                <${Table} sx=${{minWidth: 700}} aria-label="customized table">
+            <${Stack} padding=${2} spacing=${2} alignItems="flex-start">
+            <${TableContainer} component=${Paper}>
+                <${Table} sx=${{ minWidth: 700 }} aria-label="customized table">
                     <${TableHead}>
                         <${TableRow}>
                             <${StyledTableCell}>ID Pengajuan<//>
+                            <${StyledTableCell}>ID Employee<//>
+                            <${StyledTableCell} align="right">ID HRD<//>
                             <${StyledTableCell} align="right">Nama<//>
                             <${StyledTableCell} align="right">Tanggal Cuti<//>
+                            <${StyledTableCell} align="right">Sisa Cuti Tahunan<//>
+                            <${StyledTableCell} align="right">ID Karyawan PEngganti<//>
                             <${StyledTableCell} align="right">Lama Cuti<//>
+                            <${StyledTableCell} align="right">Alamat<//>
+                            <${StyledTableCell} align="right">No telephone<//>
+                            <${StyledTableCell} align="right">Keterangan<//>
                             <${StyledTableCell} align="right">Status<//>
-                            <${StyledTableCell} align="right">Tindakan<//>
                         <//>
                     <//>
                     <${TableBody}>
@@ -84,12 +75,20 @@ function TambahDataKaryawan(){
                             <${StyledTableCell} align="right">${row.fat}<//>
                             <${StyledTableCell} align="right">${row.carbs}<//>
                             <${StyledTableCell} align="right">${row.protein}<//>
+                            <${StyledTableCell} align="right">${row.calories}<//>
+                            <${StyledTableCell} align="right">${row.fat}<//>
+                            <${StyledTableCell} align="right">${row.carbs}<//>
+                            <${StyledTableCell} align="right">${row.protein}<//>
+                            <${StyledTableCell} align="right">${row.calories}<//>
+                            <${StyledTableCell} align="right">${row.fat}<//>
                         <//>
                         `)}
                     <//>
                 <//>
-        <//>
-     <//>
+            <//>
+            <//>
+    <//>
     `;
+
 }
-export default TambahDataKaryawan;
+export default DetailPengajuanCuti;
