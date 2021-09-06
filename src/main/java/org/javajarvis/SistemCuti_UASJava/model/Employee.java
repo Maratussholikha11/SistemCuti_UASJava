@@ -52,8 +52,62 @@ public class Employee extends BaseEntity<String> implements UserDetails, Seriali
 
     @Column(name = "password", nullable = false)
     private String password;
-<<<<<<< HEAD
-=======
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public String getNip() {
+        return nip;
+    }
+
+    public void setNip(String nip) {
+        this.nip = nip;
+    }
+
+    public String getNamaLengkap() {
+        return namaLengkap;
+    }
+
+    public void setNamaLengkap(String namaLengkap) {
+        this.namaLengkap = namaLengkap;
+    }
+
+    public String getDivisi() {
+        return divisi;
+    }
+
+    public void setDivisi(String divisi) {
+        this.divisi = divisi;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public String getUsername() {
         return username;
@@ -63,7 +117,7 @@ public class Employee extends BaseEntity<String> implements UserDetails, Seriali
         return password;
     }
 
-    public Employee(String username, String password) {
+    public Employee() {
         this.username = username;
         this.password = password;
     }
@@ -99,5 +153,7 @@ public class Employee extends BaseEntity<String> implements UserDetails, Seriali
     public boolean isEnabled() {
         return true;
     }
->>>>>>> bc317f328226ad16b4ecab4924c44b0da14c92d1
+
+    public void setRole(double numericCellValue) {
+    }
 }

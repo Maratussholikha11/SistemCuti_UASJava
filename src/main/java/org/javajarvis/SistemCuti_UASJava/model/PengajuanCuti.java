@@ -36,6 +36,66 @@ public class PengajuanCuti extends BaseEntity<String> implements Serializable {
     @Column(name = "lama_cuti")
     private Integer lamaCuti;
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    public void setStatusCuti(StatusCuti statusCuti) {
+        this.statusCuti = statusCuti;
+    }
+
+    public Integer getPenggantiId() {
+        return penggantiId;
+    }
+
+    public void setPenggantiId(Integer penggantiId) {
+        this.penggantiId = penggantiId;
+    }
+
+    public Integer getHrdId() {
+        return hrdId;
+    }
+
+    public void setHrdId(Integer hrdId) {
+        this.hrdId = hrdId;
+    }
+
+    public String getAlamat() {
+        return alamat;
+    }
+
+    public void setAlamat(String alamat) {
+        this.alamat = alamat;
+    }
+
+    public String getNoTelp() {
+        return noTelp;
+    }
+
+    public void setNoTelp(String noTelp) {
+        this.noTelp = noTelp;
+    }
+
+    public String getKeterangan() {
+        return keterangan;
+    }
+
+    public void setKeterangan(String keterangan) {
+        this.keterangan = keterangan;
+    }
+
+    public Integer getLamaCuti() {
+        return lamaCuti;
+    }
+
+    public void setLamaCuti(Integer lamaCuti) {
+        this.lamaCuti = lamaCuti;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pengajuan_cuti_id")
@@ -43,6 +103,8 @@ public class PengajuanCuti extends BaseEntity<String> implements Serializable {
     public Integer getId() {
         return id;
     }
+
+
 
     @ManyToOne
     @JoinColumn(name = "employee_id")
@@ -66,4 +128,6 @@ public class PengajuanCuti extends BaseEntity<String> implements Serializable {
         detailPengajuanCuti.setPengajuanCuti(this);
         this.detailPengajuanCuti = detailPengajuanCuti;
     }
+
+
 }

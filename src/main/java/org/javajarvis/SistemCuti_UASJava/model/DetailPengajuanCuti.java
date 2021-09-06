@@ -11,7 +11,7 @@ import java.util.Date;
 @Entity
 @Table(name = "tbl_detail_pengajuan_cuti")
 @Data @Setter @Getter
-public class    DetailPengajuanCuti extends BaseEntity<String>  {
+public class DetailPengajuanCuti extends BaseEntity<String>  {
 
     private Integer id;
     private  PengajuanCuti pengajuanCuti;
@@ -38,5 +38,21 @@ public class    DetailPengajuanCuti extends BaseEntity<String>  {
     @JoinColumn(name = "jenis_cuti_id")
     public JenisCuti getJenisCuti() {
         return jenisCuti;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setPengajuanCuti(PengajuanCuti pengajuanCuti) {
+        this.pengajuanCuti = pengajuanCuti;
+    }
+
+    public void setJenisCuti(JenisCuti jenisCuti) {
+        this.jenisCuti = jenisCuti;
+    }
+
+    public void setTglCuti(Date tglCuti) {
+        this.tglCuti = tglCuti;
     }
 }

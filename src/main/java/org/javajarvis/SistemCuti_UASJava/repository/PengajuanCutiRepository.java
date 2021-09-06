@@ -14,4 +14,7 @@ public interface PengajuanCutiRepository extends CrudRepository<PengajuanCuti, I
     public List<PengajuanCuti> findPengajuanCutisByStatusCuti(@PathParam("b") Integer id);
 
     Optional<StatusCuti> findByStatusCuti (StatusCuti id);
+
+    @Query(value = "select * from tbl_pengajuan_cuti where status_cuti_id=3", nativeQuery = true)
+    public List<PengajuanCuti> getCuti();
 }

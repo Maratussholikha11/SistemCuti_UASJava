@@ -20,7 +20,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final EmployeeDetailsService employeeDetailsService;
+
     private final JwtRequestFilter jwtRequestFilter;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Autowired
     public SecurityConfig(EmployeeDetailsService employeeDetailsService, JwtRequestFilter jwtRequestFilter) {
@@ -34,8 +38,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    public BCryptPasswordEncoder pswdEncoder() {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        return bCryptPasswordEncoder;
     }
 
     @Bean
